@@ -1,8 +1,7 @@
 #!/usr/bin/python3
+"""Define a class"""
+
+
 class Square:
+    """Represent a square"""
     pass
-
-
-"""
-this class is empty that defines a square, it prints nothing
-"""
