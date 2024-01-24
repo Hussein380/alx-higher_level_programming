@@ -31,10 +31,16 @@ class Square:
     @size.setter
     def size(self, value):
         """
+
         setter method for position.
 
-        args:
-            Typeerror: if position is not a tuple of 2 positive
+        Args:
+            Value (int): The size to set
+
+        Raises:
+            TypeError: if size is not an intager
+            ValueError: if size is less than 0
+
         """
 
         if not isinstance(value, int):
@@ -46,10 +52,11 @@ class Square:
     @property
     def position(self):
         """
+
         Getter method for position.
 
-        Returrms:
-            tuplem:mThe position of the square
+        Raises:
+            Tuple: the position of the square
         """
 
         return self.__position
@@ -57,10 +64,10 @@ class Square:
     @position.setter
     def position(self, value):
         """
-        setter methid for position
+        setter method for position
 
         Args:
-        value (tuple): The position tpo set
+        value (tuple): The position to set
 
         Raises:
             TypeError: If position is not a tuple of 2 positove int
@@ -77,6 +84,7 @@ class Square:
     def area(self):
         """
         calculates and return the area of the square
+
         Return:
             int: Te area of the square
         """
