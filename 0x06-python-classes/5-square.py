@@ -51,20 +51,12 @@ class Square:
 
     def area(self):
         """
-        claculates the area of the square
-
-        Returns:
-            int: the area of the square
-        """
+        claculates the area of the squareReturns:int: the area of the square"""
 
         return self.__size ** 2
 
     def my_print(self):
-        """
-        print the square pattern using the '#' character
-
-        if the size ), prints an empty line
-        """
+        """print the square pattern using the '#' characte"""
         if self.__size == 0:
             print()
         else:
