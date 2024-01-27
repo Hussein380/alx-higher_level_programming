@@ -19,16 +19,16 @@ def add_integer(a, b=98):
     """
 
     #check if a is not an int or float
- """
     if type(a) not in (int, float):
         raise TypeError("a must be an integer")
 
     #check if b is not  an int or float
     if type(b) not in (int, float):
         raise TypeError("b must be an integer")
- """
+    """
     if not isinstance(a ,( int,float)) and  if not isinstance(b ,(int,float)):
         raise TypeError("a must be an integer")
+    """
     #cast a and b intagers if they are float
 
     a  = int (a)
