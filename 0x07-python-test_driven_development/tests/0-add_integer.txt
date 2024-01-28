@@ -1,58 +1,60 @@
+"""
+>>> from 0-add_integer import add_integer
 
-#Adding two positive integers
+# Adding two positive integers
 >>> add_integer(1, 2)
 3
 
-#adding a positive integer and a negative integer
+# adding a positive integer and a negative integer
 >>> add_integer(100, -2)
 98
 
-#adding two negative integers
+# adding two negative integers
 >>> add_integer(-5, -4)
 -9
 
-#adding a positive integer with the default value of b
+# adding a positive integer with the default value of b
 >>> add_integer(2)
 100
 
-#adding a float and negative integer
+# adding a float and negative integer
 >>> add_integer(100.3, -2)
 98
 
-#adding a float and a positive integer
+# adding a float and a positive integer
 >>> add_integer(5.5, 2)
 7
 
-#adding a positive integer and a float
+# adding a positive integer and a float
 >>> add_integer(7, 5.5)
 12
 
-#adding zero to an integer
+# adding zero to an integer
 >>> add_integer(0, 8)
 8
 
-#adding two positive  floats
+# adding two positive  floats
 >>> add_integer(3.14, 2.5)
 5
 
-#adding two negative floats
+# adding two negative floats
 >>> add_integer(-3.5, -2.5)
 -6
 
-#adding zero to float
+# Adding zero to float
 >>> add_integer(0.0, 3.5)
 3
 
-#Test case with non_integer or float value (raises a TypeError)
+# Test case with non_integer or float value (raises a TypeError)
 >>> add_integer(4, "School")
-Traceback (most recent case call):
-	...
+Traceback (most recent case call last):
+    ...
 TypeError: b must be an integer
 
 #Test case with None (raises a TypeError)
 >>> add_integer(None)
 Traceback (most recent call last):
-	...
+    ...
 TypeError: a must be an integer
 
 #adding positive infinity to an integer
@@ -62,3 +64,4 @@ inf
 #adding a negative infinity to ain integer
 >>> add_integer(8, float('-inf'))
 -inf
+"""
