@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-This moduule introduces Rectangle class
-"""
+"""This moduule introduces Rectangle class """
 
 
 class Rectangle:
@@ -11,6 +9,7 @@ class Rectangle:
     Attributes:
         - width (int) : the width of the rectangle
         - height (int): The height of the rectangle
+
     """
 
     def __init__(self, width=0, height=0):
@@ -59,6 +58,9 @@ class Rectangle:
     def height(self):
         """
         Get the height of the rectangle
+
+        Returns:
+        -int: The height of the rectangle
         """
 
         return self.__height
@@ -69,7 +71,7 @@ class Rectangle:
         set the height of the rectangle.
 
         Args:
-            - value (int): The new height value
+             - value (int): The new height value
 
         Raises:
         - TypeError: if the height is not an int
@@ -104,3 +106,25 @@ class Rectangle:
 
         return 2 * (self.__width + self.__height) if self.__width and \
             self.__height else 0
+
+    def __str__(self):
+        """
+        Return a string representation of the rectangle.
+
+        Returns:
+            -str: the string representation of the rectangle
+        """
+
+        if self.__width == 0 or self.__height == 0:
+            return ""
+        return '\n'.join(['#' * self.__width for _ in range(self.__height)])
+
+        """
+        def __repr__(self):
+        Return a representation of the rectngle
+
+        Return:
+            -str: The representation of the rectangle
+
+        return "<{} object at {}>".format(type(self).__name__, hex(id(self)))
+        """
