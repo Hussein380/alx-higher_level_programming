@@ -1,0 +1,1 @@
+This dirctory covers Alx'S tasks for Python - Everything is object. The tasks covers : Object and Values, Aliasing, Immutable vs Mutable types, Mutation, cloning lists and Python tuples: immutable but potentially changing
