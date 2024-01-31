@@ -1,0 +1,38 @@
+"""
+>>> text_indentation("Hello. How are you? I'm fine, thank you.")
+Hello
+How are you
+I'm fine, thank you
+
+>>> text_indentation("This is a sentence.Another sentence.Yet another one."
+This  is a sentence
+Another sentence
+Yet another one
+
+>>> text_indentation("No punctuation in this text")
+No punctuation in this text
+
+>>> text_indentation("Multiple spaces after some words.")
+Multiple spaces
+after some word.
+
+>>> text_indentation("sentence with a question: Is this a question?")
+sentence with a question
+Is this a question
+
+>>> text_indentation("colon in the middle: separating parts.")
+colon in the middle
+separating parts
+
+>>> text_indentation("Text with multiple new lines.\n\n\nAdding more lines.")
+Text with multiple lines.
+
+
+Adding more lines
+
+>>> text_indentation("")
+<Blankline>
+
+>>> text_indentation("empty string.")
+Empty string
+"""
