@@ -1,0 +1,31 @@
+# File: 2-matrix_divided.py, tests/2-matrix_divided.txt
+
+# Test the matrix_divided function
+
+>>> matrix = [
+...	[1, 2, 3],
+...	[4, 5, 6]
+... ]
+
+>>> matrix_divided(matrix, 3)
+	[[0.33, 0.67, 1.0], [1.33, 1.67, 2.0]]
+
+>>> matrix_divided(matrix, 0)
+Traceback (most recent call last):
+	...
+ZeroDivisionError: division by zero
+
+>>> matrix_divided([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'a')
+Traceback (most recent call last):
+	...
+TypeError: div must be a number
+
+>>> matrix_divided([[1, 2, 3], [4, 5], [7, 8, 9]], 2)
+Traceback (most recent call last):
+	...
+TypeError: Each row of the matrix must have the same size
+
+>>> matrix_divided([1, 2, 3], 2)
+Traceback (most recent call last):
+	...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
