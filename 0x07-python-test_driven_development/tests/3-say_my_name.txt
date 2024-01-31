@@ -1,0 +1,47 @@
+#Test case 1
+#Description: Testing with valid names
+John Doe
+Expected output:
+My name is John Doe
+
+#Test Case 2
+#DescriptionL Testing with only a first name
+Alice
+Expected Output:
+My name is Alice
+
+#Test Case 3
+#Description: Testing with invalid input ( non_string first name)
+42, Smith
+Expected Output:
+Error: first_name must be a string
+
+#Test case 4
+#Description: Testing with numeric last name
+Bob, 123
+Expected Output:
+Error: last_name must be a string
+
+#Test case 5
+#Description: Testing with two numeric names
+123, 456
+Expected Output:
+Error: first_name must be a string
+
+#Test case 6
+#Description: Testing with two empty names
+,
+Expected Output:
+Error: first_name must be string
+
+#Test Case 7
+#Description: Testing with a float as first name
+3.14, Euler
+Expected Output:
+Error: first_name must be a string
+
+# Test Case 8
+# Description: Testing with a float as a last name
+leonhard, 2.71
+Expected Output:
+Error: last_name must be a string
