@@ -1,15 +1,10 @@
 #!/usr/bin/pyhton3
-def lookup(obj):
-    """
-    Retieve a list of attributes associated with a given object
+"""
+This modules  defines the lookup function
 
-    Args:
-        obj: The object to inspect
 
-    Returns:
-        list of attributes associated with object
 
-    Example:
+Example:
     >>> class MyClass1(object):
     ...     pass
 
@@ -50,5 +45,10 @@ def lookup(obj):
             'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag',
             'numerator', 'real', 'to_bytes']
 
+"""
+
+def lookup(obj):
     """
-    return dir(obj)
+    Returns a list of available attributes and methods of an object
+    """
+    return (dir(obj))
