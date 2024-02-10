@@ -1,12 +1,23 @@
 #!/usr/bin/python3
 """Defines unittest for models/rectangle.py
 unittest classes:
-    TestRectangle_instantiation(unittest.TestCase)
+    TestRectangle_insitantiation
+    TestRectangle_width
+    TestRectangle_height
+    TestRectangle_x
+    TestRectangle_y
+    TestRectangle_order_of_initialization
+    TestRectangle_area
+    TestRectangle_update_args
+    TestRectangle_update_kwargs
+    TestRectangle_to_dictionary
 
 """
 import unittest
 from models.rectangle import Rectangle
 from models.base import Base
+import io
+import sys
 
 
 class TestRectangle_instantiation(unittest.TestCase):
@@ -85,6 +96,356 @@ class TestRectangle_instantiation(unittest.TestCase):
         self.assertEqual(5, rectangle.y)
         rectangle.y = 10
         self.assertEqual(10, rectangle.y)
+
+
+class TestRectangleWidth(unittest.TestCase):
+    """Unittest for testing Initialization of Rectangle width attribute. """
+
+    def test_None_width(self):
+        """Test if TypeError is Raised if NONe is passed as width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(None, 2)
+
+    def test_str_width(self):
+        """Test if TypeError is raised if when a string passed as a width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("invalid", 2)
+
+    def test_float_width(self):
+        """Test if the TypeError is raised if float is passed as width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(5.5, 1)
+
+    def test_complex_width(self):
+        """Test TypeError is raised when a complex number  passed as width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(complex(5), 2)
+
+    def test_dict_width(self):
+        """Test if TypeError is raised when dictionary is passed as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle({"a": 1, "b": 2}, 2)
+
+    def test_bool_width(self):
+        """Test if TypeError is raised when boolean is passsed as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(True, 2)
+
+    def test_list_width(self):
+        """Test if TypeError is raised when a list is passed as width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle([1, 2, 3], 2)
+
+    def test_set_width(self):
+        """Test if TypeError is raised when a set is passes as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle({1, 2, 3}, 2)
+
+    def test_tuple_width(self):
+        """Test if TypeError is raised when a tuple is passes a s width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle((1, 2, 3), 2)
+
+    def test_frozenset_width(self):
+        """Test if TYpeError is raised if frozen set is passed as width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(frozenset({1, 2, 3}), 2)
+
+    def test_range_width(self):
+        """Test if TypeError is raised  when range of object passeas width"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(range(5), 2)
+
+    def test_bytes_width(self):
+        """Test if TypeError is raised when a byte object passed as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(bytearray(b'abcdefg'), 2)
+
+    def test_memoryview_width(self):
+        """Test if TypeError is raised when a memoryview obj is passed"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(memoryview(b'abcdefg'), 2)
+
+    def test_inf_width(self):
+        """Test if TypeError is raised when infinity is passed"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(float('inf'), 2)
+
+    def test_nan_width(self):
+        """test  if TypeError is raised if NaN is passed as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(float('nan'), 2)
+
+    def test_negatie_width(self):
+        """test if TypeError is raised when negative value is passed"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(-1, 2)
+
+    def test_zero_width(self):
+        """Test if ValueError is raised when zero is passed as width """
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(0, 2)
+
+class TestRectangle_height(unittest.TestCase):
+    """Unittests for testing initialization of Rectangle height attribute."""
+
+    def test_None_height(self):
+        """Test if TypeError is raised if None is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, None)
+
+    def test_str_height(self):
+        """Test if TypeError is raised if string is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, "invalid")
+
+    def test_float_height(self):
+        """Test if TypeError is raised if float is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, 5.5)
+
+    def test_complex_height(self):
+        """Test if TypeError is raised if `complex is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, complex(5))
+
+    def test_dict_height(self):
+        """Test if TypeError is raised if dictionary is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, {"a": 1, "b": 2})
+
+    def test_list_height(self):
+        """Test if TypeError is raised if list is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, [1, 2, 3])
+
+    def test_set_height(self):
+        """Test if TypeError is raised if set is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, {1, 2, 3})
+
+    def test_tuple_height(self):
+        """Test if TypeError is raised if tuple is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, (1, 2, 3))
+
+    def test_frozenset_height(self):
+        """Test if TypeError is raised if frozenset is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, frozenset({1, 2, 3, 1}))
+
+    def test_range_height(self):
+        """Test if TypeError is raised if range is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, range(5))
+
+    def test_bytes_height(self):
+        """Test if TypeError is raised if bytes is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, b'Python')
+
+    def test_bytearray_height(self):
+        """Test if TypeError is raised if bytearray is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, bytearray(b'abcdefg'))
+
+    def test_memoryview_height(self):
+        """Test if TypeError is raised if memoryview object passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, memoryview(b'abcedfg'))
+
+    def test_inf_height(self):
+        """Test if TypeError is raised if float(inf) is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, float('inf'))
+
+    def test_nan_height(self):
+        """Test if TypeError is raised if NaN is passd as width"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, float('nan'))
+
+    def test_negative_height(self):
+        """Test if TypeError is raised if negative is passd as width"""
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            Rectangle(1, -1)
+
+    def test_zero_height(self):
+        """Test if TypeError is raised if zero is passd as width"""
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            Rectangle(1, 0)
+
+
+class TestRectangle_x(unittest.TestCase):
+    """Unittest for testing initialization of Rectangle x attribute """
+
+
+    def test_None_x(self):
+        """Test if TyepeError is raised when None is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, None)
+
+    def test_str_x(self):
+        """Test if TyepeError is raised when string is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, "innvalid", 2)
+                
+    def test_float_x(self):
+        """Test if TyepeError is raised when float is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, 5.5, 9)
+
+    def test_complex_x(self):
+        """Test if TyepeError is raised when complex is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, complex(2))
+
+    def test_dict_x(self):
+        """Test if TyepeError is raised when dict is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, {"a": 1, "b": 2}, 2)
+
+    def test_bool_x(self):
+        """Test if TyepeError is raised when boolean is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, True, 2)
+
+    def test_list_x(self):
+        """Test if TyepeError is raised when list is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, [1, 2, 3], 2)
+
+    def test_set_x(self):
+        """Test if TyepeError is raised when set is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, {1, 2, 3}, 2)
+
+    def test_tuple_x(self):
+        """Test if TyepeError is raised when tuple is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, (1, 2, 3), 2)
+
+    def test_frozenset_x(self):
+        """Test if TyepeError is raised when frozenset is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, frozenset({1, 2, 3, 1}))
+
+    def test_range_x(self):
+        """Test if TyepeError is raised when range is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, range(5))
+
+    def test_bytes_x(self):
+        """Test if TyepeError is raised when bytesarray is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, bytearray(b'abcdefg'))
+
+    def test_memoryview_x(self):
+        """Test if TyepeError is raised when memoryview is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, memoryview(b'abcdefg'))
+
+    def test_inf_x(self):
+        """Test if TyepeError is raised when float('inf') is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, float('inf'), 2)
+
+    def test_Nan_x(self):
+        """Test if TyepeError is raised when Nan is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(1, 2, float('nan'), 2)
+
+    def test_Negative_x(self):
+        """Test if TyepeError is raised when Negative is passed as x """
+        with self.assertRaisesRegex(TypeError, "x must be integer"):
+            Rectangle(5, 3, -1, 0)
+class TestRectangleY(unittest.TestCase):
+    """Unittests for testing initialization of Rectangle y attribute."""
+
+    def test_None_y(self):
+        """Test if TypeError is raised when None is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, None)
+
+    def test_str_y(self):
+        """Test if TypeError is raised when a string is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, "invalid")
+
+    def test_float_y(self):
+        """Test if TypeError is raised when a float number is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, 5.5)
+
+    def test_complex_y(self):
+        """Test if TypeError is raised when a complex number is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, complex(5))
+
+    def test_dict_y(self):
+        """Test if TypeError is raised when a dictionary is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, {"a": 1, "b": 2})
+
+    def test_list_y(self):
+        """Test if TypeError is raised when a list is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, [1, 2, 3])
+
+    def test_set_y(self):
+        """Test if TypeError is raised when a set is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, {1, 2, 3})
+
+    def test_tuple_y(self):
+        """Test if TypeError is raised when a tuple is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, (1, 2, 3))
+
+    def test_frozenset_y(self):
+        """Test if TypeError is raised when a frozenset is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, frozenset({1, 2, 3, 1}))
+
+    def test_range_y(self):
+        """Test if TypeError is raised when a range object is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, range(5))
+
+    def test_bytes_y(self):
+        """Test if TypeError is raised when a bytes object is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, b'Python')
+
+    def test_bytearray_y(self):
+        """Test if TypeError is raised when a bytearray object is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, bytearray(b'abcdefg'))
+
+    def test_memoryview_y(self):
+        """Test if TypeError is raised when a memoryview object is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, memoryview(b'abcedfg'))
+
+    def test_inf_y(self):
+        """Test if TypeError is raised when float('inf') is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, float('inf'))
+
+    def test_nan_y(self):
+        """Test if TypeError is raised when float('nan') is passed as y."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 1, float('nan'))
+
+    def test_negative_y(self):
+        """Test if ValueError is raised when a negative value is passed as y."""
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            Rectangle(3, 5, 0, -1)
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
