@@ -65,7 +65,7 @@ class TestBase_instantiation(unittest.TestCase):
         base1 = Base()
         base2 = Base()
         base3 = Base()
-        self.assertEqual(base1.id, base3.id -2)
+        self.assertEqual(base1.id, base3.id - 2)
 
     def test_None_id(self):
         """Test instantation with None as the ID"""
