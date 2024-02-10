@@ -84,5 +84,17 @@ class TestBase_instantiation(unittest.TestCase):
         base3 = Base()
         self.assertEqual(base1.id, base3.id - 1)
 
+    def test_id_public(self):
+        """Test if the ID attribute is publically accessible"""
+        base = Base(12)
+        base.id = 15
+        self.assertEqual(15, base.id)
+
+    def test_nb_instances_private(self):
+        """Test if the __nb_instances attribute is private"""
+        with self.assertRaises(AttributeError):
+            print(Base(12).__nb__instances)
+
+
 if __name__ == "__main__":
     unittest.main()
