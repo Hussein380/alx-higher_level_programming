@@ -176,9 +176,9 @@ class TestRectangleWidth(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
             Rectangle(float('nan'), 2)
 
-    def test_negatie_width(self):
+    def test_negative_width(self):
         """test if TypeError is raised when negative value is passed"""
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+        with self.assertRaisesRegex(TypeError, "width must be > 0"):
             Rectangle(-1, 2)
 
     def test_zero_width(self):
@@ -358,7 +358,9 @@ class TestRectangle_x(unittest.TestCase):
         """Test if TyepeError is raised when Negative is passed as x """
         with self.assertRaisesRegex(TypeError, "x must be integer"):
             Rectangle(5, 3, -1, 0)
-class TestRectangleY(unittest.TestCase):
+
+
+class TestRectangle_y(unittest.TestCase):
     """Unittests for testing initialization of Rectangle y attribute."""
 
     def test_None_y(self):
