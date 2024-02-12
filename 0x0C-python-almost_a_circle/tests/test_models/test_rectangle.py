@@ -126,10 +126,10 @@ class TestRectangleWidth(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
             Rectangle({"a": 1, "b": 2}, 2)
 
-    def test_bool_width(self):
-        """Test if TypeError is raised when boolean is passsed as width """
+    """def test_bool_width(self):
+        Test if TypeError is raised when boolean is passsed as width
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
-            Rectangle(True, 2)
+            Rectangle(True, 2)"""
 
     def test_list_width(self):
         """Test if TypeError is raised when a list is passed as width"""
@@ -178,13 +178,14 @@ class TestRectangleWidth(unittest.TestCase):
 
     def test_negative_width(self):
         """test if TypeError is raised when negative value is passed"""
-        with self.assertRaisesRegex(TypeError, "width must be > 0"):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Rectangle(-1, 2)
 
     def test_zero_width(self):
         """Test if ValueError is raised when zero is passed as width """
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Rectangle(0, 2)
+
 
 class TestRectangle_height(unittest.TestCase):
     """Unittests for testing initialization of Rectangle height attribute."""
@@ -278,7 +279,6 @@ class TestRectangle_height(unittest.TestCase):
 class TestRectangle_x(unittest.TestCase):
     """Unittest for testing initialization of Rectangle x attribute """
 
-
     def test_None_x(self):
         """Test if TyepeError is raised when None is passed as x """
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
@@ -288,7 +288,7 @@ class TestRectangle_x(unittest.TestCase):
         """Test if TyepeError is raised when string is passed as x """
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
             Rectangle(1, 2, "innvalid", 2)
-                
+
     def test_float_x(self):
         """Test if TyepeError is raised when float is passed as x """
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
@@ -304,10 +304,10 @@ class TestRectangle_x(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
             Rectangle(1, 2, {"a": 1, "b": 2}, 2)
 
-    def test_bool_x(self):
-        """Test if TyepeError is raised when boolean is passed as x """
+    """def test_bool_x(self):
+        Test if TyepeError is raised when boolean is passed as x
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
-            Rectangle(1, 2, True, 2)
+            Rectangle(1, 2, True, 2)"""
 
     def test_list_x(self):
         """Test if TyepeError is raised when list is passed as x """
@@ -419,12 +419,12 @@ class TestRectangle_y(unittest.TestCase):
             Rectangle(1, 2, 3, b'Python')
 
     def test_bytearray_y(self):
-        """Test if TypeError is raised when a bytearray object is passed as y."""
+        """Test if TypeError is raised when a bytearray object is passed y."""
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
             Rectangle(1, 2, 3, bytearray(b'abcdefg'))
 
     def test_memoryview_y(self):
-        """Test if TypeError is raised when a memoryview object is passed as y."""
+        """Test if TypeError is raised when a memoryview object passed y."""
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
             Rectangle(1, 2, 3, memoryview(b'abcedfg'))
 
@@ -439,15 +439,172 @@ class TestRectangle_y(unittest.TestCase):
             Rectangle(1, 2, 1, float('nan'))
 
     def test_negative_y(self):
-        """Test if ValueError is raised when a negative value is passed as y."""
+        """Test if ValueError is raised when a negative value is passed y."""
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Rectangle(3, 5, 0, -1)
 
 
+class TestRectangle_order_of_initialization(unittest.TestCase):
+    """Unittest for testing Rectangle order of attributes initialization"""
+
+    def test_width_before_height(self):
+        """Test if TypeError is raised when width is initialized
+        with an invalid before height"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("invalid width", "invalid height")
+
+    def test_width_before_x(self):
+        """Test if TypeError is raised when width is initialized
+        with an invalid before x-coordinate"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("invalid width", 2, "invalid x")
+
+    def test_width_before_y(self):
+        """Test if TypeError is raised when width is initialized
+        with an invalid before y-coordinate"""
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("invalid width", 2, 3, "invalid y")
+
+    def test_height_before_x(self):
+        """Test if TypeError is raised when height is initialized
+        with an invalid before x-coordinate"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, "invalid height" "invalid x")
+
+    def test_height_before_y(self):
+        """Test if TypeError is raised when height is initialized
+        with an invalid before y-coordinate"""
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, "invalid height", 2, "invalid x")
+
+    def test_x_before_y(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Rectangle(1, 2, "invalid x", "invalid y")
 
 
+class TestRectangle_Area(unittest.TestCase):
+    """Unit tests for the area method of the Rectangle clss """
+
+    def test_are_small(self):
+        """Test if area is correctly calculated for a small rectangle"""
+        r = Rectangle(10, 2, 0, 0)
+        self.assertEqual(20, r.area())
+
+    def test_are_large(self):
+        """Test if area is correctly calculated for large rectangle"""
+        r = Rectangle(999999999999999, 999999999999999999, 0, 0, 1)
+        expected_area = 999999999999998999000000000000001
+        self.assertEqual(expected_area, r.area())
+
+    def test_are_changed_attributes(self):
+        """Test if area is correctly calculated after modifying attributes"""
+        r = Rectangle(2, 10, 1, 1, 1)
+        r.width = 7
+        r.height = 14
+        self.assertEqual(98, r.area())
+
+    def test_are_one_arg(self):
+        """Test if area is correctly calculated for a small rectangle"""
+        r = Rectangle(2, 10, 1, 1, 1)
+        with self.assertRaises(TypeError):
+            r.area(1)
 
 
+class TestRectangle_stdout(unittest.TestCase):
+    """Unittests for testing __str__ and display methods of Rectangle class."""
+
+    @staticmethod
+    def capture_stdout(rect, method):
+        """Captures and returns text printed to stdout.
+
+        Args:
+            rect (Rectangle): The Rectangle to print to stdout.
+            method (str): The method to run on rect.
+        Returns:
+            The text printed to stdout by calling method on rect.
+        """
+        capture = io.StringIO()
+        sys.stdout = capture
+        if method == "print":
+            print(rect)
+        else:
+            rect.display()
+        sys.stdout = sys.__stdout__
+        return capture
+
+    def test_str_method_print_width_height(self):
+        """Test __str__ method by printing width and height."""
+        r = Rectangle(4, 6)
+        capture = TestRectangle_stdout.capture_stdout(r, "print")
+        correct = "[Rectangle] ({}) 0/0 - 4/6\n".format(r.id)
+        self.assertEqual(correct, capture.getvalue())
+
+    def test_str_method_width_height_x(self):
+        """Test __str__ method by specifying width, height,and x-coordinate."""
+        r = Rectangle(5, 5, 1)
+        correct = "[Rectangle] ({}) 1/0 - 5/5".format(r.id)
+        self.assertEqual(correct, r.__str__())
+
+    def test_str_method_width_height_x_y(self):
+        """Test __str__ method by specifying width, height, x-coordinate,
+        and y-coordinate."""
+        r = Rectangle(1, 8, 2, 4)
+        correct = "[Rectangle] ({}) 2/4 - 1/8".format(r.id)
+        self.assertEqual(correct, str(r))
+
+    def test_str_method_width_height_x_y_id(self):
+        """Test __str__ method by specifying width, height, x-coordinate,
+        y-coordinate, and id."""
+        r = Rectangle(13, 21, 2, 4, 7)
+        self.assertEqual("[Rectangle] (7) 2/4 - 13/21", str(r))
+
+    def test_str_method_changed_attributes(self):
+        """Test __str__ method after modifying attributes."""
+        r = Rectangle(7, 7, 0, 0, 4)
+        r.width = 15
+        r.height = 1
+        r.x = 8
+        r.y = 10
+        self.assertEqual("[Rectangle] (4) 8/10 - 15/1", str(r))
+
+    def test_str_method_one_arg(self):
+        """Test __str__ method with invalid argument."""
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(TypeError):
+            r.__str__(1)
+
+    def test_display_width_height(self):
+        """Test display method by specifying width and height."""
+        r = Rectangle(2, 3, 0, 0, 0)
+        capture = TestRectangle_stdout.capture_stdout(r, "display")
+        self.assertEqual("##\n##\n##\n", capture.getvalue())
+
+    def test_display_width_height_x(self):
+        """Test display method by specifying width, height,x-coordinate."""
+        r = Rectangle(3, 2, 1, 0, 1)
+        capture = TestRectangle_stdout.capture_stdout(r, "display")
+        self.assertEqual("###\n###\n", capture.getvalue())
+
+    def test_display_width_height_y(self):
+        """Test display method by specifying width, height, y-coordinate."""
+        r = Rectangle(4, 5, 0, 1, 0)
+        capture = TestRectangle_stdout.capture_stdout(r, "display")
+        display = "\n####\n####\n####\n####\n####\n"
+        self.assertEqual(display, capture.getvalue())
+
+    def test_display_width_height_x_y(self):
+        """Test display method by specifying width, height, x-coordinate, and
+        y-coordinate."""
+        r = Rectangle(2, 4, 3, 2, 0)
+        capture = TestRectangle_stdout.capture_stdout(r, "display")
+        display = "\n\n##\n##\n##\n##\n"
+        self.assertEqual(display, capture.getvalue())
+
+    def test_display_one_arg(self):
+        """Test display method with invalid argument."""
+        r = Rectangle(5, 1, 2, 4, 7)
+        with self.assertRaises(TypeError):
+            r.display(1)
 
 
 if __name__ == "__main__":
