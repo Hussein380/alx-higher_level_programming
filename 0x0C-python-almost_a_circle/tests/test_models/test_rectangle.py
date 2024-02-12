@@ -737,5 +737,28 @@ class TestRectangle_update_kwargs(unittest.TestCase):
         self.assertEqual("[Rectangle] (89) 19/7 - 10/5", str(r))
 
 
+class TestRectangle_to_dictionary(unittest.TestCase):
+    """Unittest for testing to dictionary method of the Rectangle class """
+
+    def test_to_dictionary_output(self):
+        """Test to the output of the dictionary method"""
+        r = Rectangle(10, 2, 1, 9, 5)
+        correct = {'x': 1, 'y': 9, 'id': 5, 'height': 2, 'width': 10}
+        self.assertDictEqual(correct, r.to_dictionary())
+
+    def test_to_dictionary_no_object_changes(self):
+        """Test to ensure calling to_dictionary doesnt change the object"""
+        r1 = Rectangle(10, 2, 1, 9, 5)
+        r2 = Rectangle(5, 9, 1, 2, 10)
+        r2.update(**r1.to_dictionary())
+        self.assertNotEqual(r1, r2)
+
+    def test_to_dictionary_arg(self):
+        """Test to ensure passing an argument raises TypeError"""
+        r = Rectangle(10, 2, 4, 1, 2)
+        with self.assertRaises(TypeError):
+            r.to_dictionary(1)
+
+
 if __name__ == "__main__":
     unittest.main()
