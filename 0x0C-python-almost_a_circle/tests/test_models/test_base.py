@@ -19,93 +19,90 @@ from models.square import Square
 
 
 class TestBase_instantiation(unittest.TestCase):
-    """unit test for the Base class"""
-    def test_id_generation(self):
-        """Test id generation when id is not provided """
-        base1 = Base()
-        base2 = Base()
-        self.assertEqual(base1.id, base2.id - 1)
-
-    def test_id_provided(self):
-        """Test id assignement when id is provided"""
-        base = Base(10)
-        self.assertEqual(base.id, 10)
-
-    def test_id_increment(self):
-        """test when id incremented for multiple instance"""
-        base1 = Base()
-        base2 = Base()
-        self.assertEqual(base2.id, base1.id + 1)
-
-    def test_invalid_id(self):
-        """Test behaviour when invalid id is provided """
-        with self.assertRaises(TypeError):
-            Base("invalid_id")
-
-    def test_negative_id(self):
-        """test negative id is provided """
-        with self.assertRaises(ValueError) as context:
-            Base(-5)
-        self.assertEqual(str(context.exception),
-                         "Id must be a non_negative integer")
-
-    def test_zero_id(self):
-        """Tets beaviour when id is zero """
-        base = Base(0)
-        self.assertEqual(base.id, 0)
-
-    def test_large_id(self):
-        """Test behaviour when id is large """
-        base = Base(99999999999999999)
-        self.assertEqual(base.id, 99999999999999999)
-
-    def test_same_id(self):
-        """Test behaviour when the same id is asserted """
-        base1 = Base(10)
-        base2 = Base(10)
-        self.assertEqual(base1.id, base2.id)
+    """Unittests for testing instantiation of the Base class."""
 
     def test_no_arg(self):
-        """Test when no argument is provided"""
-        base1 = Base()
-        base2 = Base()
-        self.assertEqual(base1.id, base2.id - 1)
+        b1 = Base()
+        b2 = Base()
+        self.assertEqual(b1.id, b2.id - 1)
 
     def test_three_bases(self):
-        """Test instantation of three objects and check if
-        their IDs are consecutive """
-        base1 = Base()
-        base2 = Base()
-        base3 = Base()
-        self.assertEqual(base1.id, base3.id - 2)
+        b1 = Base()
+        b2 = Base()
+        b3 = Base()
+        self.assertEqual(b1.id, b3.id - 2)
 
     def test_None_id(self):
-        """Test instantation with None as the ID"""
-        base1 = Base(None)
-        base2 = Base(None)
-        self.assertEqual(base1.id, base2.id - 1)
+        b1 = Base(None)
+        b2 = Base(None)
+        self.assertEqual(b1.id, b2.id - 1)
 
-    def unique_id(self):
-        """Test instantiation with uniques ID"""
-        assertEqual(12, Base(12).id)
+    def test_unique_id(self):
+        self.assertEqual(12, Base(12).id)
 
     def test_nb_instances_after_unique_id(self):
-        """Test if the number of instances increments correctly """
-        base1 = Base()
-        base2 = Base(12)
-        base3 = Base()
-        self.assertEqual(base1.id, base3.id - 1)
+        b1 = Base()
+        b2 = Base(12)
+        b3 = Base()
+        self.assertEqual(b1.id, b3.id - 1)
 
     def test_id_public(self):
-        """Test if the ID attribute is publically accessible"""
-        base = Base(12)
-        base.id = 15
-        self.assertEqual(15, base.id)
+        b = Base(12)
+        b.id = 15
+        self.assertEqual(15, b.id)
 
     def test_nb_instances_private(self):
-        """Test if the __nb_instances attribute is private"""
         with self.assertRaises(AttributeError):
-            print(Base(12).__nb__instances)
+            print(Base(12).__nb_instances)
+
+    def test_str_id(self):
+        self.assertEqual("hello", Base("hello").id)
+
+    def test_float_id(self):
+        self.assertEqual(5.5, Base(5.5).id)
+
+    def test_complex_id(self):
+        self.assertEqual(complex(5), Base(complex(5)).id)
+
+    def test_dict_id(self):
+        self.assertEqual({"a": 1, "b": 2}, Base({"a": 1, "b": 2}).id)
+
+    def test_bool_id(self):
+        self.assertEqual(True, Base(True).id)
+
+    def test_list_id(self):
+        self.assertEqual([1, 2, 3], Base([1, 2, 3]).id)
+
+    def test_tuple_id(self):
+        self.assertEqual((1, 2), Base((1, 2)).id)
+
+    def test_set_id(self):
+        self.assertEqual({1, 2, 3}, Base({1, 2, 3}).id)
+
+    def test_frozenset_id(self):
+        self.assertEqual(frozenset({1, 2, 3}), Base(frozenset({1, 2, 3})).id)
+
+    def test_range_id(self):
+        self.assertEqual(range(5, Base(range(5)).id))
+
+    def test_bytes_id(self):
+        self.assertEqual(b'Python', Base(b'Python').id)
+
+    def test_bytearray_id(self):
+        self.assertEqual(bytearray(b'abcefg'), Base(123).id)
+
+    def test_memoryview_id(self):
+        self.assertEqual(memoryview(b'abcefg'), Base(memoryview(b'abcefg')).id)
+
+    def test_inf_id(self):
+        self.assertEqual(float('inf'), Base(float('inf')).id)
+
+    def test_NaN_id(self):
+        self.assertNotEqual(float('nan'), Base(123).id)
+
+    def test_two_args(self):
+        with self.assertRaises(TypeError):
+            Base(1, 2)
 
 
 class TestBase_load_from_file_csv(unittest.TestCase):
