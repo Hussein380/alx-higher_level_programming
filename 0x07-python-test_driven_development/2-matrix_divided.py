@@ -25,7 +25,7 @@ def matrix_divided(matrix, div):
 
 
     """
-
+                                                                
     """
     matrix must be a list of lists of integers or floats, otherwise
     raise a TypeError exception with the message matrix must be a
