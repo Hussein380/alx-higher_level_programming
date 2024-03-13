@@ -1,4 +1,4 @@
--- Creates and fills a table second_table with attributes id, name and score in my MYSQL server with multiple rows.
+--ccreates and fills a table second_table with attributes id, name and score in my MYSQL server with multiple rows.
 CREATE TABLE IF NOT EXISTS second_table (id INT, name VARCHAR(256), score INT);
 INSERT INTO second_table (id, name, score) VALUES (2, "John", 10);
 INSERT INTO second_table (id, name, score) VALUES (2, "Alex", 3);
