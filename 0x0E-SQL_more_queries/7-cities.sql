@@ -3,7 +3,7 @@
 CREATE DATABASE IF NOT EXISTS hbtn_0d_usa;
 -- use a database
 USE hbtn_0d_usa;
---create a table
+-- create a table
 CREATE TABLE IF NOT EXISTS cities (
 	id INT AUTO_INCREMENT UNIQUE NOT NULL,
 	state_id INT NOT NULL,
