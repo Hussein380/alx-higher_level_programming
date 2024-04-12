@@ -11,7 +11,8 @@ import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    """Retrieve MySQL username, password and database name from the cmd arguments """
+    """Retrieve MySQL username, password and database name from the
+    cmd arguments """
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     db_name = sys.argv[3]
@@ -41,6 +42,7 @@ if __name__ == "__main__":
     for row in rows:
         print(row)
 
-    """close the cursor and the daatabase connection to free up system resources """
+    """close the cursor and the daatabase connection to free
+    up system resources """
     cur.close()
     conn.close()
