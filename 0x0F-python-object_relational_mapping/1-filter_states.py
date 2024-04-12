@@ -33,7 +33,7 @@ if __name__ == "__main__":
     cur = conn.cursor()
 
     """execute the SQL code using cursor execute() method"""
-    cur.execute("SELECT * FROM states WHERE name LIKE BINARY 'N% '\
+    cur.execute("SELECT * FROM states WHERE name LIKE BINARY 'N%'\
             ORDER BY states.id ASC")
     """fetch all rows"""
     rows = cur.fetchall()
@@ -42,4 +42,4 @@ if __name__ == "__main__":
 
     """close cursor and databse connection"""
     cur.close()
-    cur.close()
+    conn.close()
