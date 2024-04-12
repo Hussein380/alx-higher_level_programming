@@ -26,7 +26,8 @@ if __name__ == "__main__":
     """Creates a cursor object to execute SQL queries"""
     db_cursor.execute(
             "SELECT * FROM states WHERE name LIKE \
-                    BINARY %(name)s ORDER BY states.id ASC", {'name': argv[4]})
+                    BINARY % (name)s ORDER BY states.id \
+                    ASC", {'name': argv[4]})
     rows_selected = db_cursor.fetchall()
     for row in rows_selected:
         print(row)
