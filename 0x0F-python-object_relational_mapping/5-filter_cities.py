@@ -26,7 +26,7 @@ if __name__ == "__main__":
                             ON
                                 cities.state_id = states.id
                             WHERE
-                                states.name LIKE BINARY % (state_name) s
+                                states.name LIKE BINARY %(state_name) s
                             ORDER BY
                                 cities.id ASC
                             """, {
